@@ -1,6 +1,5 @@
 package com.springdemo.practice.controller;
 
-import com.springdemo.practice.dao.EmployeeDAO;
 import com.springdemo.practice.entity.Employee;
 import com.springdemo.practice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
