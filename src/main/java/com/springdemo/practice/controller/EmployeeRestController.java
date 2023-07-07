@@ -54,7 +54,7 @@ public class EmployeeRestController {
     @GetMapping("/employees/set-admin/{employeeId}")
     public void setAdmin(@PathVariable Long employeeId){
         Employee employee = employeeService.findById(employeeId);
-        List<Role> roles = new ArrayList<>();
+        List<Role> roles = employee.getRoles();
         roles.add(roleService.getRoleById(3));
         employee.setRoles(roles);
         employeeService.save(employee);
@@ -62,7 +62,7 @@ public class EmployeeRestController {
     @GetMapping("/employees/set-manager/{employeeId}")
     public void setManager(@PathVariable Long employeeId){
         Employee employee = employeeService.findById(employeeId);
-        List<Role> roles = new ArrayList<>();
+        List<Role> roles = employee.getRoles();
         roles.add(roleService.getRoleById(2));
         employee.setRoles(roles);
         employeeService.save(employee);
