@@ -2,35 +2,36 @@ package com.springdemo.practice.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name="employees")
 public class Employee {
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column
     private String name;
-    @Column(name = "email")
+    @Column
     private String email;
-    @Column(name = "designation")
+    @Column
     private String designation;
-    @Column(name = "password")
+    @Column
     private String password;
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
-            name = "emp_roles",
-            joinColumns = @JoinColumn(name = "emp_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
+            name = "emp_role",
+            joinColumns = {@JoinColumn(name = "emp_id",referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "id")}
     )
     private List<Role> roles;
 }

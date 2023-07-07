@@ -31,14 +31,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee save(Employee employee) {
-        Employee dbEmployee = employeeRepository.save(employee);
-        return dbEmployee;
+    public void save(Employee employee) {
+        employeeRepository.save(employee);
     }
 
     @Override
     public String deleteById(Long employeeId) {
         employeeRepository.deleteById(employeeId);
         return "Employee deleted of id - "+employeeId;
+    }
+
+    @Override
+    public Employee merge(Employee employee) {
+        return employeeRepository.save(employee);
     }
 }

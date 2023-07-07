@@ -9,7 +9,9 @@ public interface EmployeeService {
 
     Employee findById(Long employeeId);
 
-    Employee save(Employee employee);
+    void save(Employee employee);
 
     String deleteById(Long employeeId);
+
+    Employee merge(Employee employee);
 }
