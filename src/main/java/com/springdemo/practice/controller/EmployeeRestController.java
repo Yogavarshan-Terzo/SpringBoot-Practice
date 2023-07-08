@@ -1,10 +1,14 @@
 package com.springdemo.practice.controller;
 
+import com.springdemo.practice.dto.LoginDto;
 import com.springdemo.practice.entity.Employee;
 import com.springdemo.practice.entity.Role;
 import com.springdemo.practice.repository.RoleRepository;
+import com.springdemo.practice.security.LoginMapper;
 import com.springdemo.practice.service.EmployeeService;
 import com.springdemo.practice.service.RoleService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +20,24 @@ import java.util.List;
 public class EmployeeRestController {
     RoleService roleService;
     EmployeeService employeeService;
+    LoginMapper loginMapper;
     @Autowired
-    public EmployeeRestController(RoleService roleService, EmployeeService employeeService) {
+    public EmployeeRestController(RoleService roleService, EmployeeService employeeService, LoginMapper loginMapper) {
         this.roleService = roleService;
         this.employeeService = employeeService;
+        this.loginMapper = loginMapper;
     }
 
+
+    @GetMapping("/login")
+    public String login(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response){
+        return loginMapper.authenticate(loginDto,request,response);
+    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().setAttribute("authenticatedUser","");
+        return "logged out";
+    }
     @GetMapping("/employees")
     public List<Employee> findAll(){
         List<Employee> employees = employeeService.findAll();

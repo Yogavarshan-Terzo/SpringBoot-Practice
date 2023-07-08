@@ -27,7 +27,7 @@ public class Employee {
     private String designation;
     @Column
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "emp_role",
             joinColumns = {@JoinColumn(name = "emp_id",referencedColumnName = "id")},
